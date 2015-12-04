@@ -1,0 +1,8 @@
+#calc_body {
+    position: fixed;
+    top: 15%;
+    left: 35%;
+    background-color: #4a2b0f;
+    height:490px;
+    width: 445px;
+}
