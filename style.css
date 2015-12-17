@@ -1,3 +1,7 @@
+* {
+    margin:0;
+    padding:0;
+}
 #calc_body {
     position: fixed;
     top: 15%;
@@ -5,4 +9,56 @@
     background-color: #4a2b0f;
     height:490px;
     width: 445px;
+}
+
+#logo {
+    height: 30px;
+    margin-left: 8px;
+}
+
+#display {
+    margin-left: 15px;
+    width: 417px;
+    height: 82px;
+    background-color: rgb(155, 243, 255);
+}
+
+#display p {
+    position: relative;
+    top: 15px;
+    right: 10px;
+    font-size: 3em;
+    color: rgb(51, 96, 102);
+    text-align: right;
+}
+
+#buttons_pad {
+    text-align: center;
+    margin-left: 5px;
+    border-spacing: 10px;
+    color: white;
+}
+
+.button {
+    width: 75px;
+    height: 62px;
+    font-size: 2em;
+
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+.button:active {
+    -moz-box-shadow:    inset 3px 3px 10px black;
+    -webkit-box-shadow: inset 3px 3px 10px black;
+    box-shadow:         inset 3px 3px 10px black;
+}
+
+.operational_button {
+    background-color: rgb(134, 78, 27);
+}
+
+.numeric_button {
+    background-color: rgb(191, 111, 40);
 }
