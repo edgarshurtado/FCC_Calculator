@@ -5,15 +5,14 @@
         <meta name="viewport" content="width=device-width">
         <title>FreeCodeCamp Calculator</title>
         <link rel="stylesheet" href="style.css" type="text/css" media="all" />
-        <script src="main.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </head>
     <body>
         <div id="calc_body">
-            <img id="logo"
-
-            src="https://raw.githubusercontent.com/FreeCodeCamp/FCCAssets/master/Logos%20and%20Covers/freeCodeCamp-onBrown-1200.png" />
+            <img id="logo" 
+            src="https://raw.githubusercontent.com/FreeCodeCamp/FCCAssets/master/Logos%20and%20Covers/freeCodeCamp-onBrown-1200.png" alt=""/>
             <div id="display">
-                <p>22.66666</p>
+                <p id="displayNumbers">0</p>
             </div>
 
             <table id="buttons_pad">
@@ -54,5 +53,6 @@
                 </tr>
             </table>
       </div>
+        <script src="main.js" type="text/javascript" charset="utf-8"></script>
     </body>
 </html>
