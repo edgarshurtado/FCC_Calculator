@@ -6,7 +6,7 @@ $(".numeric_button").click(function(){
 // Introducing numbers to the display control
 function addNumberToDisplay(number) {
     var currentText = $('#displayNumbers').text();
-    if(currentText == 0){
+    if(currentText === '0'){
         $('#displayNumbers').text(number);
     }else if(currentText.length < 15){
         $('#displayNumbers').text(currentText + number);
