@@ -55,10 +55,10 @@
     box-shadow:         inset 3px 3px 10px black;
 }
 
-.operational_button {
-    background-color: rgb(134, 78, 27);
+.light_brown {
+    background-color: rgb(191, 111, 40);
 }
 
-.numeric_button {
-    background-color: rgb(191, 111, 40);
+.dark_brown {
+    background-color: rgb(134, 78, 27);
 }

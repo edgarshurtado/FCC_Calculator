@@ -5,11 +5,11 @@ $(".numeric_button").click(function(){
 
 // Introducing numbers to the display control
 function addNumberToDisplay(number) {
-    var currentText = $('#displayNumbers').text();
+    var currentText = $('#number').text();
     if(currentText === '0'){
-        $('#displayNumbers').text(number);
+        $('#number').text(number);
     }else if(currentText.length < 15){
-        $('#displayNumbers').text(currentText + number);
+        $('#number').text(currentText + number);
     }
 }
 
@@ -18,5 +18,17 @@ $('#c').click(deleteCurrentNumber);
 
 // Controller
 function deleteCurrentNumber(){
-    $('#displayNumbers').text('0');
+    $('#number').text('0');
+    $('#sign').text('');
 }
+
+// +- button
+
+$("#change_sign").click(function(){
+    var currentSign = $('#sign').text();
+    if(currentSign === ""){
+        $('#sign').text("-"); 
+    }else if(currentSign === "-"){
+        $('#sign').text(""); 
+    }   
+})
