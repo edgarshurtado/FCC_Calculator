@@ -1,6 +1,7 @@
 // Introduce numbers by clicking
 $(".numeric_button").click(function(){
     addNumberToDisplay($(this).text());
+    calcObject.lastButton = $(this).attr('class');
 });
 
 // Introducing numbers to the display control
@@ -11,8 +12,6 @@ function addNumberToDisplay(number) {
     }else if(currentText.length < 15){
         $('#number').text(currentText + number);
     }
-
-    calcObject.lastButton = $(this).attr('class');
 }
 
 // -- Delete current number in display --
@@ -29,10 +28,10 @@ function deleteCurrentNumber(){
 $("#change_sign").click(function(){
     var currentSign = $('#sign').text();
     if(currentSign === ""){
-        $('#sign').text("-"); 
+        $('#sign').text("-");
     }else if(currentSign === "-"){
-        $('#sign').text(""); 
-    }   
+        $('#sign').text("");
+    }
 });
 
 // Operational_buttons
@@ -60,7 +59,7 @@ $('.operational_button').click(function(){
             calcObject.setActiveOperator('division');
             break;
         default:
-            
+
     }
     calcObject.lastButton = $(this).attr('class');
 });
@@ -69,7 +68,7 @@ $('#equal_button').click(function(){
     calcObject.setOperand(2, parseInt($('#number').text(), 10));
     var solution = calcObject.solve();
     $('#number').text(solution);
-})
+});
 
 // ---- CALC LOGIC ----
 
@@ -77,12 +76,12 @@ var calcObject = {
     operand1 : null,
     operand2 : null,
     activeOperator : null,
-    lastButton: null,
+    lastButton: "",
 
     setOperand: function(operandNumber, number){
         this["operand" + operandNumber] = number;
     },
-    
+
     setActiveOperator: function(operatorSymbol){
         this.activeOperator = operatorSymbol;
     },
@@ -94,4 +93,4 @@ var calcObject = {
     solve: function(){
         return this[this.activeOperator]();
     }
-}
+};
