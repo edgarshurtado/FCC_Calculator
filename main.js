@@ -1,16 +1,18 @@
 // Introduce numbers by clicking
 $(".numeric_button").click(function(){
-    addNumberToDisplay($(this).text());
-    calcObject.lastButton = $(this).attr('class');
+    var $this = $(this);
+    addNumberToDisplay($this.text());
+    calcObject.lastButton = $this.attr('class');
 });
 
 // Introducing numbers to the display control
 function addNumberToDisplay(number) {
-    var currentText = $('#number').text();
+    var $number = $('#number');
+    var currentText = $number.text();
     if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1){
-        $('#number').text(number);
+        $number.text(number);
     }else if(currentText.length < 15){
-        $('#number').text(currentText + number);
+        $number.text(currentText + number);
     }
 }
 
@@ -26,11 +28,12 @@ function deleteCurrentNumber(){
 // +- button
 
 $("#change_sign").click(function(){
-    var currentSign = $('#sign').text();
+    var $sign = $('#sign');
+    var currentSign = $sign.text();
     if(currentSign === ""){
-        $('#sign').text("-");
+        $sign.text("-");
     }else if(currentSign === "-"){
-        $('#sign').text("");
+        $sign.text("");
     }
 });
 
