@@ -49,6 +49,8 @@ $("#change_sign").click(function(){
 
 // Operational_buttons
 $('.operational_button').click(function(){
+    //TODO: Implement here condition to concat operations
+
     var operationSymbol = $(this).text();
     calcObject.setOperand(1, parseInt($('#number').text(), 10));
 
