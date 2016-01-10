@@ -16,14 +16,24 @@ function addNumberToDisplay(number) {
     }
 }
 
-// -- Delete current number in display --
-$('#c').click(deleteCurrentNumber);
+// Checks if the operation is ready and then solves it
+function solveCurrentOperation() {
+    if(calcObject.operationReady()){
+        calcObject.setOperand(2, parseInt($('#number').text(), 10));
+        var solution = calcObject.solve();
+        $('#number').text(solution);
+    }
+}
 
-// Controller
+// -- Delete current number in display --
 function deleteCurrentNumber(){
     $('#number').text('0');
     $('#sign').text('');
 }
+
+// -- Delete current number in display --
+$('#c').click(deleteCurrentNumber);
+
 
 // +- button
 
@@ -47,7 +57,7 @@ $('.operational_button').click(function(){
             calcObject.setActiveOperator('addition');
             break;
         case '%':
-            calcObject.setActiveOperator('division');
+            calcObject.setActiveOperator('module');
             break;
         case '-':
             calcObject.setActiveOperator('substraction');
@@ -93,7 +103,39 @@ var calcObject = {
         return this.operand1 + this.operand2;
     },
 
+    module: function(){
+        return this.operand1 % this.operand2;
+    },
+
+   substraction  : function(){
+        return this.operand1 - this.operand2;
+    },
+
+    sqrt : function(){
+        return Math.sqrt(this.operand1);
+    },
+
+    multiplication : function(){
+        return this.operand1 * this.operand2;
+    },
+
+    division : function(){
+        return this.operand1 / this.operand2;
+    },
+
     solve: function(){
         return this[this.activeOperator]();
+        this.resetOperands();
+    },
+
+    resetOperands: function() {
+        this.operand1 = null;
+        this.operand2 = null;
+    },
+
+    operationReady: function(){
+        return this.operan1 !== null
+            && this.operan2 !== null
+            && this.activeOperator !== null;
     }
 };
