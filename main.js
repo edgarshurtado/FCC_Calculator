@@ -35,6 +35,11 @@ function deleteCurrentNumber(){
 $('#c').click(deleteCurrentNumber);
 
 
+// -- Reset the calculator --
+$('#del').click(function(){
+    calcObject.resetOperands();
+    deleteCurrentNumber();
+});
 // +- button
 
 $("#change_sign").click(function(){
