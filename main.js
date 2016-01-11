@@ -9,7 +9,7 @@ $(".numeric_button").click(function(){
 function addNumberToDisplay(number) {
     var $number = $('#number');
     var currentText = $number.text();
-    if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1){
+    if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
         $number.text(number);
     }else if(currentText.length < 15){
         $number.text(currentText + number);
@@ -91,6 +91,9 @@ $('#equal_button').click(function(){
     if(calcObject.operationReady()){
         solveCurrentOperation();
     }
+
+    calcObject.resetOperands();
+    calcObject.lastButton = $(this).attr('id');
 });
 
 // ---- CALC LOGIC ----
@@ -135,7 +138,6 @@ var calcObject = {
 
     solve: function(){
         return this[this.activeOperator]();
-        this.resetOperands();
     },
 
     resetOperands: function() {
