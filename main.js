@@ -49,7 +49,10 @@ $("#change_sign").click(function(){
 
 // Operational_buttons
 $('.operational_button').click(function(){
-    //TODO: Implement here condition to concat operations
+    if(calcObject.operationReady()){
+        solveCurrentOperation();
+    }
+
 
     var operationSymbol = $(this).text();
     calcObject.setOperand(1, parseInt($('#number').text(), 10));
@@ -80,9 +83,9 @@ $('.operational_button').click(function(){
 });
 
 $('#equal_button').click(function(){
-    calcObject.setOperand(2, parseInt($('#number').text(), 10));
-    var solution = calcObject.solve();
-    $('#number').text(solution);
+    if(calcObject.operationReady()){
+        solveCurrentOperation();
+    }
 });
 
 // ---- CALC LOGIC ----
@@ -133,6 +136,7 @@ var calcObject = {
     resetOperands: function() {
         this.operand1 = null;
         this.operand2 = null;
+        this.activeOperator = null;
     },
 
     operationReady: function(){
