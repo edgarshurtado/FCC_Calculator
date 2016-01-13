@@ -32,6 +32,12 @@ function deleteCurrentNumber(){
     $('#sign').text('');
 }
 
+// Parse the display number
+function parseDisplayNumber(){
+    var numberString = $('#sign').text() + $('#number').text()
+    return parseInt( numberString, 10);
+}
+
 // -- Delete current number in display --
 $('#c').click(deleteCurrentNumber);
 
@@ -61,7 +67,7 @@ $('.operational_button').click(function(){
 
 
     var operationSymbol = $(this).text();
-    calcObject.setOperand(1, parseInt($('#number').text(), 10));
+    calcObject.setOperand(1, parseDisplayNumber());
 
     switch (operationSymbol) {
         case '+':
