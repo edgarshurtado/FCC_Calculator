@@ -10,6 +10,7 @@ function addNumberToDisplay(number) {
     var $number = $('#number');
     var currentText = $number.text();
     if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
+        deleteCurrentNumber();
         $number.text(number);
     }else if(currentText.length < 15){
         $number.text(currentText + number);
