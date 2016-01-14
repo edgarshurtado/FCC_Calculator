@@ -1,3 +1,8 @@
+// TODO: Insetead of writting the numbers in the page and later pass to the 
+// calcObject every button click will changhe the operand in the object and
+// then print it in the page. This will avoid solve operations when the 2nd
+// operand has not been set by the user
+
 // Introduce numbers by clicking
 $(".numeric_button").click(function(){
     var $this = $(this);
