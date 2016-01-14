@@ -88,6 +88,9 @@ $('.operational_button').click(function(){
         case '/':
             calcObject.setActiveOperator('division');
             break;
+        case '^':
+            calcObject.setActiveOperator('pow');
+            break;
         default:
 
     }
@@ -141,6 +144,10 @@ var calcObject = {
 
     division : function(){
         return this.operand1 / this.operand2;
+    },
+
+    pow : function(){
+        return Math.pow(this.operand1, this.operand2);
     },
 
     solve: function(){
