@@ -17,15 +17,18 @@ function addNumberToDisplay(number) {
     if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
         deleteCurrentNumber();
         $number.text(number);
+        calcObject.setOperand(parseInt($('#number').text(), 10));
     }else if(currentText.length < 15){
-        $number.text(currentText + number);
+        var newNumber = currentText + number;
+        $number.text(newNumber);
+        calcObject.setOperand(parseInt($('#number').text(), 10));
     }
 }
 
 // Checks if the operation is ready and then solves it
 function solveCurrentOperation() {
     if(calcObject.operationReady()){
-        calcObject.setOperand(2, parseInt($('#number').text(), 10));
+        calcObject.setOperand(parseInt($('#number').text(), 10));
         var solution = calcObject.solve();
         $('#number').text(solution);
     }
@@ -70,9 +73,10 @@ $('.operational_button').click(function(){
         solveCurrentOperation();
     }
 
-
     var operationSymbol = $(this).text();
-    calcObject.setOperand(1, parseDisplayNumber());
+    //In case we are concatenating operations, to set the result number as
+    //operand1
+    calcObject.setOperand(parseDisplayNumber());
 
     switch (operationSymbol) {
         case '+':
@@ -103,6 +107,8 @@ $('.operational_button').click(function(){
 });
 
 $('#equal_button').click(function(){
+    calcObject.setOperand(parseInt($('#number').text(), 10));
+
     if(calcObject.operationReady()){
         solveCurrentOperation();
     }
@@ -117,10 +123,16 @@ var calcObject = {
     operand1 : null,
     operand2 : null,
     activeOperator : null,
-    lastButton: "",
+    lastButton: "", 
 
-    setOperand: function(operandNumber, number){
-        this["operand" + operandNumber] = number;
+    // Sets the operand in the calc. If there's no activeOperator, the number
+    // is sets to the operand1, if there is it sets to the operand2
+    setOperand: function(number){
+        if(this.activeOperator === null){
+            this.operand1 = number;
+        } else {
+            this.operand2 = number;
+        }
     },
 
     setActiveOperator: function(operatorSymbol){
@@ -166,8 +178,8 @@ var calcObject = {
     },
 
     operationReady: function(){
-        return this.operan1 !== null
-            && this.operan2 !== null
+        return this.operand1 !== null
+            && this.operand2 !== null
             && this.activeOperator !== null;
     }
 };
