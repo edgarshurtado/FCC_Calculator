@@ -120,6 +120,7 @@ $('.operational_button').click(function(){
             break;
         case '√':
             calcObject.setActiveOperator('sqrt');
+            solveCurrentOperation();
             break;
         case '*':
             calcObject.setActiveOperator('multiplication');
@@ -210,8 +211,13 @@ var calcObject = {
     },
 
     operationReady: function(){
+        if(this.activeOperator === "sqrt"){
+            // The square root is special because it requires just 1 operand
+            return this.operand1 !== null;
+        }else {
         return this.operand1 !== null
             && this.operand2 !== null
             && this.activeOperator !== null;
+        }
     }
 };
