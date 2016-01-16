@@ -37,7 +37,7 @@ function solveCurrentOperation() {
         var solution = calcObject.solve();
         
         //Check the sign of the result
-        if(solution <== 0){
+        if(solution <= 0){
             $sign.text("-");
             $number.text(solution * (-1));
         }else {
