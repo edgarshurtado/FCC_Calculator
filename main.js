@@ -1,5 +1,6 @@
-
-// ---- CALC LOGIC ----
+// --------------------
+//      CALC LOGIC 
+// --------------------
 
 var calcObject = {
     operand1 : null,
@@ -129,7 +130,14 @@ function deleteCurrentNumber(){
 // Parse the display number
 function parseDisplayNumber(){
     var numberString = $('#sign').text() + $('#number').text()
-    return parseInt( numberString, 10);
+    var parsedNumber;
+
+    if(numberString.indexOf(".") !== -1){
+        parsedNumber = parseFloat(numberString);;
+    }else {
+        parsedNumber = parseInt( numberString, 10 );
+    }
+    return parsedNumber;
 }
 
 // ------------------------------
