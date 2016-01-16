@@ -10,7 +10,7 @@ var calcObject = {
     // Sets the operand in the calc. If there's no activeOperator, the number
     // is sets to the operand1, if there is it sets to the operand2
     setOperand: function(number){
-        if(this.activeOperator === null){
+        if(this.operand1 === null){
             this.operand1 = number;
         } else {
             this.operand2 = number;
@@ -58,7 +58,7 @@ var calcObject = {
     resetOperands: function() {
         this.operand1 = null;
         this.operand2 = null;
-        this.activeOperator = null;
+        //this.activeOperator = null;
     },
 
     operationReady: function(){
@@ -158,7 +158,7 @@ $("#change_sign").click(function(){
     var $sign = $('#sign');
     var currentSign = $sign.text();
 
-    if(calcObject.lastButton !== "" && calcObject.operand2 === null){
+    if(calcObject.lastButton.indexOf("operational_button") !== -1  && calcObject.operand2 === null){
         $sign.text("-");
         $('#number').text("0");
         calcObject.setOperand(parseDisplayNumber);
