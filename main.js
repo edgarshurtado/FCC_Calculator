@@ -2,6 +2,8 @@
 // calcObject every button click will changhe the operand in the object and
 // then print it in the page. This will avoid solve operations when the 2nd
 // operand has not been set by the user
+//
+// TODO: Check negative operations
 
 // Introduce numbers by clicking
 $(".numeric_button").click(function(){
