@@ -31,6 +31,7 @@ function solveCurrentOperation() {
         calcObject.setOperand(parseInt($('#number').text(), 10));
         var solution = calcObject.solve();
         $('#number').text(solution);
+        calcObject.resetOperands(solution);
     }
 }
 
@@ -168,7 +169,9 @@ var calcObject = {
     },
 
     solve: function(){
-        return this[this.activeOperator]();
+        var solution = this[this.activeOperator]();
+        this.resetOperands();
+        return solution;
     },
 
     resetOperands: function() {
