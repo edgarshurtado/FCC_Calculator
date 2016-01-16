@@ -19,21 +19,32 @@ function addNumberToDisplay(number) {
     if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
         deleteCurrentNumber();
         $number.text(number);
-        calcObject.setOperand(parseInt($('#number').text(), 10));
+        calcObject.setOperand(parseDisplayNumber());
     }else if(currentText.length < 15){
         var newNumber = currentText + number;
         $number.text(newNumber);
-        calcObject.setOperand(parseInt($('#number').text(), 10));
+        calcObject.setOperand(parseDisplayNumber());
     }
 }
 
 // Checks if the operation is ready and then solves it
 function solveCurrentOperation() {
+    var $sign = $('#sign');
+    var $number = $('#number');
+
     if(calcObject.operationReady()){
-        calcObject.setOperand(parseInt($('#number').text(), 10));
+        calcObject.setOperand(parseDisplayNumber());
         var solution = calcObject.solve();
-        $('#number').text(solution);
-        calcObject.resetOperands(solution);
+        
+        //Check the sign of the result
+        if(solution <== 0){
+            $sign.text("-");
+            $number.text(solution * (-1));
+        }else {
+            $sign.text("");
+            $number.text(solution);
+        }
+        calcObject.resetOperands();
     }
 }
 
@@ -110,7 +121,7 @@ $('.operational_button').click(function(){
 });
 
 $('#equal_button').click(function(){
-    calcObject.setOperand(parseInt($('#number').text(), 10));
+    calcObject.setOperand(parseDisplayNumber());
 
     if(calcObject.operationReady()){
         solveCurrentOperation();
