@@ -17,7 +17,14 @@ function addNumberToDisplay(number) {
     var $number = $('#number');
     var currentText = $number.text();
     if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
-        deleteCurrentNumber();
+        if(calcObject.lastButton === "change_sign"){
+            // In case the user hits the change_sign button just right after
+            // hitting an operational button because he wants a negative number
+            // as second operand.
+            $number.text(0);
+        }else {
+            deleteCurrentNumber();
+        }
         $number.text(number);
         calcObject.setOperand(parseDisplayNumber());
     }else if(currentText.length < 15){
@@ -74,11 +81,20 @@ $('#del').click(function(){
 $("#change_sign").click(function(){
     var $sign = $('#sign');
     var currentSign = $sign.text();
-    if(currentSign === ""){
+
+    if(calcObject.lastButton !== "" && calcObject.operand2 === null){
         $sign.text("-");
-    }else if(currentSign === "-"){
-        $sign.text("");
+        $('#number').text("0");
+        calcObject.setOperand(parseDisplayNumber);
+    }else {
+        if(currentSign === ""){
+            $sign.text("-");
+        }else if(currentSign === "-"){
+            $sign.text("");
+        }
     }
+
+    calcObject.lastButton = $(this).attr('id');
 });
 
 // Operational_buttons
@@ -88,8 +104,8 @@ $('.operational_button').click(function(){
     }
 
     var operationSymbol = $(this).text();
-    //In case we are concatenating operations, to set the result number as
-    //operand1
+    // In case we are concatenating operations, to set the result number as
+    // operand1
     calcObject.setOperand(parseDisplayNumber());
 
     switch (operationSymbol) {
