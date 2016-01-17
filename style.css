@@ -62,3 +62,32 @@
 .dark_brown {
     background-color: rgb(134, 78, 27);
 }
+
+.blur_layer{
+    position:fixed;
+    height:100%;
+    width:100%;
+    display: none;
+    z-index: 4;
+}
+
+.transparent_background{
+    height:100%;
+    width:100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal_window{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: white;
+    padding: 15px 5px 15px 5px;
+    border-radius: 15px;
+}
+
+.modal_window p{
+    margin: 5px 5px 5px 5px;
+}

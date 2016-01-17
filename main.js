@@ -92,11 +92,9 @@ function addNumberToDisplay(number) {
             deleteCurrentNumber();
         }
         $number.text(number);
-        calcObject.setOperand(parseDisplayNumber());
     }else if(currentText.length < 15){
         var newNumber = currentText + number;
         $number.text(newNumber);
-        calcObject.setOperand(parseDisplayNumber());
     }
 }
 
@@ -230,5 +228,13 @@ $('#equal_button').click(function(){
 
     calcObject.resetOperands();
     calcObject.lastButton = $(this).attr('id');
+});
+
+$('#help_button').click(function(){
+    $('#help').show();
+});
+
+$('.transparent_background').click(function(){
+    $('#help').hide();
 });
 
