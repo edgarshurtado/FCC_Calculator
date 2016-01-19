@@ -1,3 +1,6 @@
+/*jslint browser: true*/
+/*global $, jQuery, alert*/
+
 // --------------------
 //      CALC LOGIC 
 // --------------------
@@ -66,17 +69,22 @@ var calcObject = {
         if(this.activeOperator === "sqrt"){
             // The square root is special because it requires just 1 operand
             return this.operand1 !== null;
-        }else {
+        }
         return this.operand1 !== null
             && this.operand2 !== null
             && this.activeOperator !== null;
-        }
     }
 };
 
 // ------------------------------
 // GUI Logic
 // ------------------------------
+
+// -- Delete current number in display --
+function deleteCurrentNumber(){
+    $('#number').text('0');
+    $('#sign').text('');
+}
 
 // Introducing numbers to the display control
 function addNumberToDisplay(number) {
@@ -96,6 +104,19 @@ function addNumberToDisplay(number) {
         var newNumber = currentText + number;
         $number.text(newNumber);
     }
+}
+
+// Parse the display number
+function parseDisplayNumber(){
+    var numberString = $('#sign').text() + $('#number').text();
+    var parsedNumber;
+
+    if(numberString.indexOf(".") !== -1){
+        parsedNumber = parseFloat(numberString);
+    }else {
+        parsedNumber = parseInt( numberString, 10 );
+    }
+    return parsedNumber;
 }
 
 // Checks if the operation is ready and then solves it
@@ -119,24 +140,7 @@ function solveCurrentOperation() {
     }
 }
 
-// -- Delete current number in display --
-function deleteCurrentNumber(){
-    $('#number').text('0');
-    $('#sign').text('');
-}
 
-// Parse the display number
-function parseDisplayNumber(){
-    var numberString = $('#sign').text() + $('#number').text()
-    var parsedNumber;
-
-    if(numberString.indexOf(".") !== -1){
-        parsedNumber = parseFloat(numberString);;
-    }else {
-        parsedNumber = parseInt( numberString, 10 );
-    }
-    return parsedNumber;
-}
 
 // ------------------------------
 // BUTTONS EVENTS
