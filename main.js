@@ -80,6 +80,8 @@ var calcObject = {
 // GUI Logic
 // ------------------------------
 
+//
+
 // -- Delete current number in display --
 function deleteCurrentNumber(){
     $('#number').text('0');
@@ -119,23 +121,29 @@ function parseDisplayNumber(){
     return parsedNumber;
 }
 
+
+function printNumber(num){
+    var $numberHolder = $('#number');
+    var $signHolder = $('#sign');
+
+    if(num < 0){
+        $signHolder.text("-");
+        num = num * (-1);
+    }
+
+    num = num.toString().slice(0, 15);
+
+    $numberHolder.text(num);
+}
+
+
 // Checks if the operation is ready and then solves it
 function solveCurrentOperation() {
-    var $sign = $('#sign');
-    var $number = $('#number');
-
     if(calcObject.operationReady()){
         calcObject.setOperand(parseDisplayNumber());
         var solution = calcObject.solve();
         
-        //Check the sign of the result
-        if(solution < 0){
-            $sign.text("-");
-            $number.text(solution * (-1));
-        }else {
-            $sign.text("");
-            $number.text(solution);
-        }
+        printNumber(solution);
         calcObject.resetOperands();
     }
 }
