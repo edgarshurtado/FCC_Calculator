@@ -1,20 +1,22 @@
+//TODO: When the sign is changed the result is not displayed properly
+
 /*jslint browser: true*/
 /*global $, jQuery, alert*/
 
 // --------------------
-//      CALC LOGIC 
+//      CALC LOGIC
 // --------------------
 
 var calcObject = {
     operand1 : null,
     operand2 : null,
     activeOperator : null,
-    lastButton: "", 
+    lastButton: "",
 
     // Sets the operand in the calc. If there's no activeOperator, the number
     // is sets to the operand1, if there is it sets to the operand2
     setOperand: function(number){
-        if(this.operand1 === null){
+        if(this.activeOperator === null){
             this.operand1 = number;
         } else {
             this.operand2 = number;
@@ -62,7 +64,7 @@ var calcObject = {
     resetOperands: function() {
         this.operand1 = null;
         this.operand2 = null;
-        //this.activeOperator = null;
+        this.activeOperator = null;
     },
 
     operationReady: function(){
@@ -80,32 +82,26 @@ var calcObject = {
 // GUI Logic
 // ------------------------------
 
-//
-
 // -- Delete current number in display --
 function deleteCurrentNumber(){
     $('#number').text('0');
     $('#sign').text('');
 }
 
-// Introducing numbers to the display control
-function addNumberToDisplay(number) {
-    var $number = $('#number');
-    var currentText = $number.text();
-    if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
-        if(calcObject.lastButton === "change_sign"){
-            // In case the user hits the change_sign button just right after
-            // hitting an operational button because he wants a negative number
-            // as second operand.
-            $number.text(0);
-        }else {
-            deleteCurrentNumber();
-        }
-        $number.text(number);
-    }else if(currentText.length < 15){
-        var newNumber = currentText + number;
-        $number.text(newNumber);
+function printNumber(num){
+    var $numberHolder = $('#number');
+    var $signHolder = $('#sign');
+
+    if(num < 0){
+        $signHolder.text("-");
+        num = num * (-1);
+    }else{
+        $signHolder.text("");
     }
+
+    num = num.toString().slice(0, 15);
+
+    $numberHolder.text(num);
 }
 
 // Parse the display number
@@ -121,34 +117,35 @@ function parseDisplayNumber(){
     return parsedNumber;
 }
 
-
-function printNumber(num){
-    var $numberHolder = $('#number');
-    var $signHolder = $('#sign');
-
-    if(num < 0){
-        $signHolder.text("-");
-        num = num * (-1);
+// Introducing numbers to the display control
+function addNumberToDisplay(number) {
+    var $number = $('#number');
+    var currentText = $number.text();
+    if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
+        if(calcObject.lastButton === "change_sign"){
+            // In case the user hits the change_sign button just right after
+            // hitting an operational button because he wants a negative number
+            // as second operand.
+            $number.text(number);
+        }else {
+            deleteCurrentNumber();
+            $number.text(number);
+        }
+    }else if(currentText.length < 15){
+        $number.text(currentText + number);
     }
-
-    num = num.toString().slice(0, 15);
-
-    $numberHolder.text(num);
+    calcObject.setOperand(parseDisplayNumber());
 }
 
 
 // Checks if the operation is ready and then solves it
 function solveCurrentOperation() {
     if(calcObject.operationReady()){
-        calcObject.setOperand(parseDisplayNumber());
         var solution = calcObject.solve();
-        
         printNumber(solution);
         calcObject.resetOperands();
     }
 }
-
-
 
 // ------------------------------
 // BUTTONS EVENTS
@@ -193,14 +190,15 @@ $("#change_sign").click(function(){
 
 // Operational_buttons
 $('.operational_button').click(function(){
+    calcObject.setOperand(parseDisplayNumber());
     if(calcObject.operationReady()){
         solveCurrentOperation();
+        // In case we are concatenating operations, to set the result number as
+        // operand1
+        calcObject.setOperand(parseDisplayNumber());
     }
 
     var operationSymbol = $(this).text();
-    // In case we are concatenating operations, to set the result number as
-    // operand1
-    calcObject.setOperand(parseDisplayNumber());
 
     switch (operationSymbol) {
         case '+':
@@ -249,4 +247,3 @@ $('#help_button').click(function(){
 $('.transparent_background').click(function(){
     $('#help').hide();
 });
-
