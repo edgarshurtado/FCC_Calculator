@@ -126,13 +126,13 @@ function addNumberToDisplay(number) {
             // In case the user hits the change_sign button just right after
             // hitting an operational button because he wants a negative number
             // as second operand.
-            $number.text(number);
+            printNumber(number);
         }else {
             deleteCurrentNumber();
-            $number.text(number);
+            printNumber(number);
         }
     }else if(currentText.length < 15){
-        $number.text(currentText + number);
+        printNumber(currentText + number);
     }
     calcObject.setOperand(parseDisplayNumber());
 }
@@ -140,10 +140,10 @@ function addNumberToDisplay(number) {
 
 // Checks if the operation is ready and then solves it
 function solveCurrentOperation() {
-    if(calcObject.operationReady()){
+    if (calcObject.operationReady()) {
         var solution = calcObject.solve();
-        printNumber(solution);
         calcObject.resetOperands();
+        printNumber(solution);
     }
 }
 
