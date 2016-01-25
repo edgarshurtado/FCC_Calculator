@@ -86,6 +86,11 @@ var calcObject = {
 function deleteCurrentNumber(){
     $('#number').text('0');
     $('#sign').text('');
+    if(calcObject.operand2 !== null){
+        calcObject.operand2 = null;
+    }else{
+        calcObject.operand1 = null;
+    }
 }
 
 function printNumber(num){
