@@ -118,21 +118,22 @@ function parseDisplayNumber(){
 }
 
 // Introducing numbers to the display control
-function addNumberToDisplay(number) {
+function addNumberToDisplay(newNumber) {
     var $number = $('#number');
-    var currentText = $number.text();
-    if(currentText === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
+    var $sign = $('#sign');
+    var currentNumber = $sign.text() + $number.text();
+    if(currentNumber === '0' || calcObject.lastButton.indexOf('operational_button') !== -1 || calcObject.lastButton === "equal_button"){
         if(calcObject.lastButton === "change_sign"){
             // In case the user hits the change_sign button just right after
             // hitting an operational button because he wants a negative number
             // as second operand.
-            printNumber(number);
+            printNumber(newNumber);
         }else {
             deleteCurrentNumber();
-            printNumber(number);
+            printNumber(newNumber);
         }
-    }else if(currentText.length < 15){
-        printNumber(currentText + number);
+    }else if(currentNumber.length < 15){
+        printNumber(currentNumber + newNumber);
     }
     calcObject.setOperand(parseDisplayNumber());
 }
