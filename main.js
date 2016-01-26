@@ -32,8 +32,8 @@ calcObject = {
         return this.operand1 + this.operand2;
     },
 
-    module: function () {
-        return this.operand1 % this.operand2;
+    percent: function () {
+        return this.operand1 * this.operand2/100;
     },
 
     substraction: function () {
@@ -130,7 +130,7 @@ function addNumberToDisplay(newNumber) {
             // hitting an operational button because he wants a negative number
             // as second operand.
             printNumber(newNumber);
-        }else if(newNumber === '.') {
+        }else if(newNumber === '.') { // For the cases in which the user want the left-side of the point be 0
             printNumber("0.");
         } else {
             deleteCurrentNumber();
@@ -211,7 +211,7 @@ $('.operational_button').click(function(){
             calcObject.setActiveOperator('addition');
             break;
         case '%':
-            calcObject.setActiveOperator('module');
+            calcObject.setActiveOperator('percent');
             break;
         case '-':
             calcObject.setActiveOperator('substraction');
