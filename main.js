@@ -7,68 +7,70 @@
 //      CALC LOGIC
 // --------------------
 
-var calcObject = {
-    operand1 : null,
-    operand2 : null,
-    activeOperator : null,
+var calcObject;
+calcObject = {
+    operand1: null,
+    operand2: null,
+    activeOperator: null,
     lastButton: "",
 
     // Sets the operand in the calc. If there's no activeOperator, the number
     // is sets to the operand1, if there is it sets to the operand2
-    setOperand: function(number){
-        if(this.activeOperator === null){
+    setOperand: function (number) {
+        if (this.activeOperator === null) {
             this.operand1 = number;
         } else {
             this.operand2 = number;
         }
     },
 
-    setActiveOperator: function(operatorSymbol){
+    setActiveOperator: function (operatorSymbol) {
         this.activeOperator = operatorSymbol;
     },
 
-    addition : function(){
+    addition: function () {
         return this.operand1 + this.operand2;
     },
 
-    module: function(){
+    module: function () {
         return this.operand1 % this.operand2;
     },
 
-   substraction  : function(){
+    substraction: function () {
         return this.operand1 - this.operand2;
     },
 
-    sqrt : function(){
+    sqrt: function () {
         return Math.sqrt(this.operand1);
     },
 
-    multiplication : function(){
+    multiplication: function () {
         return this.operand1 * this.operand2;
     },
 
-    division : function(){
+    division: function () {
         return this.operand1 / this.operand2;
     },
 
-    pow : function(){
+    pow: function () {
         return Math.pow(this.operand1, this.operand2);
     },
 
-    solve: function(){
+    solve: function () {
         var solution = this[this.activeOperator]();
+        solution = parseFloat(parseFloat(solution).toPrecision(15));
         this.resetOperands();
         return solution;
     },
 
-    resetOperands: function() {
+    resetOperands: function () {
         this.operand1 = null;
         this.operand2 = null;
         this.activeOperator = null;
     },
 
-    operationReady: function(){
-        if(this.activeOperator === "sqrt"){
+    operationReady: function () {
+        if (this.activeOperator === "sqrt") {
             // The square root is special because it requires just 1 operand
             return this.operand1 !== null;
         }
@@ -128,14 +130,15 @@ function addNumberToDisplay(newNumber) {
             // hitting an operational button because he wants a negative number
             // as second operand.
             printNumber(newNumber);
-        }else {
+        }else if(newNumber === '.') {
+            printNumber("0.");
+        } else {
             deleteCurrentNumber();
             printNumber(newNumber);
         }
     }else if(currentNumber.length < 15){
         printNumber(currentNumber + newNumber);
     }
-    calcObject.setOperand(parseDisplayNumber());
 }
 
 
@@ -155,7 +158,9 @@ function solveCurrentOperation() {
 // Introduce numbers by clicking
 $(".numeric_button").click(function(){
     var $this = $(this);
-    addNumberToDisplay($this.text());
+    if($this.text() !== '.' || $('#number').text().indexOf('.') === -1){
+        addNumberToDisplay($this.text());
+    }
     calcObject.lastButton = $this.attr('class');
 });
 
